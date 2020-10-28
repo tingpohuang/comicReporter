@@ -54,9 +54,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					log.Println("Quota err:", err)
 				}
 				log.Println(message.Text)
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.youtube.com")).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.manhuaren.com/search?title=" + message.Text +"&language=1")).Do(); err != nil {
 					log.Print(err)
 				}
+
+
 			}
 		}
 	}
