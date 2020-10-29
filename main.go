@@ -57,7 +57,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.manhuaren.com/search?title="+message.Text+"&language=1")).Do(); err != nil {
 					log.Print(err)
 				}
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImagemapMessage("https://www.manhuaren.com/search?title="+message.Text+"&language=1", "imageMap message", linebot.ImagemapBaseSize{Width: 1040, Height: 1040}, linebot.NewURIImagemapAction("comic", "https://www.youtube.com", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 1040}))).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImagemapMessage("https://www.youtube.com", "imageMap message", linebot.ImagemapBaseSize{Width: 1040, Height: 1040}, linebot.NewURIImagemapAction("comic", "https://www.youtube.com", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 1040}))).Do(); err != nil {
+					log.Print("imageMap error : ")
 					log.Print(err)
 				}
 
