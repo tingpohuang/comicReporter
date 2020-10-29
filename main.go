@@ -54,7 +54,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					log.Println("Quota err:", err)
 				}
 				log.Println(message.Text)
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.manhuaren.com/search?title="+message.Text+"&language=1"), linebot.NewImagemapMessage("https://www.youtube.com", "imageMap message", linebot.ImagemapBaseSize{Width: 1040, Height: 1040}, linebot.NewURIImagemapAction("comic", "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 1040}))).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.manhuaren.com/search?title="+message.Text+"&language=1"), linebot.NewImagemapMessage("https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg", "imageMap message", linebot.ImagemapBaseSize{Width: 1040, Height: 1040}, linebot.NewURIImagemapAction("comic", "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg", linebot.ImagemapArea{X: 520, Y: 0, Width: 520, Height: 1040}))).Do(); err != nil {
 					log.Print(err)
 				}
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("https://www.manhuaren.com/search?title="+message.Text+"&language=1")).Do(); err != nil {
