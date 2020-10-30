@@ -55,6 +55,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				log.Println(message.Text)
 
+				// Web Crawler
+
+				//Preprocessd Flex message Json data
+
 				jsonData := []byte(`{
 					"type": "carousel",
 					"contents": [
@@ -74,7 +78,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						  "contents": [
 							{
 							  "type": "text",
-							  "text": "Arm Chair, White",
+							  "text": message.Text,
 							  "wrap": true,
 							  "weight": "bold",
 							  "size": "xl"
@@ -238,7 +242,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				if err != nil {
 					log.Print(err)
 				}
+
 				flexMessage := linebot.NewFlexMessage("alt text", container)
+
+				// Reply Message
 
 				if _, err = bot.ReplyMessage(event.ReplyToken, flexMessage).Do(); err != nil {
 					log.Print(err)
