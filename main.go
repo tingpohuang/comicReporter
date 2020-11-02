@@ -67,7 +67,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				}
 
 				var bubbleContainers []*linebot.BubbleContainer
-				doc.Find("ul.book-list li").Each(func(index int, item *goquery.Selection) {
+				doc.Find("ul.book-list li").EachWithBreak(func(index int, item *goquery.Selection) bool {
 					book := item
 					bookLink, _ := book.Find("a").Attr("href")
 					bookTitle, _ := book.Find("a").Attr("title")
@@ -80,8 +80,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					log.Printf("Link #%d Img: '%s'\n", index, bookImg)
 					log.Printf("Link #%d Info: '%s'\n", index, bookInfo)
 					if index > 5 {
-						return
+						return false
 					}
+					return true
 				})
 
 				//Preprocessd Flex message Json data
