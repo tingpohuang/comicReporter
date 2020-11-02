@@ -16,12 +16,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 var bot *linebot.Client
+
+const baseComicURL = "https://www.manhuaren.com"
 
 func main() {
 	var err error
@@ -56,187 +60,25 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				log.Println(message.Text)
 
 				// Web Crawler
+				encodeMessage, _ := url.Parse(message.Text)
+				doc, err := goquery.NewDocument("https://www.manhuaren.com/search?title=" + encodeMessage.String())
+				if err != nil {
+					log.Fatal(err)
+				}
 
+				var bubbleContainers []*linebot.BubbleContainer
+				doc.Find("ul.book-list li").Each(func(index int, item *goquery.Selection) {
+					book := item
+					bookLink, _ := book.Find("a").Attr("href")
+					bookTitle, _ := book.Find("a").Attr("title")
+					bookImg, _ := book.Find("a img").Attr("src")
+					bookInfo := book.Find("p.book-list-info-desc").Contents().Text()
+					bubbleContainers = append(bubbleContainers, newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo))
+
+				})
 				//Preprocessd Flex message Json data
 
-				/*
-					jsonData := []byte(`{
-						"type": "carousel",
-						"contents": [
-						  {
-							"type": "bubble",
-							"hero": {
-							  "type": "image",
-							  "size": "full",
-							  "aspectRatio": "20:13",
-							  "aspectMode": "fit",
-							  "url": "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"
-							},
-							"body": {
-							  "type": "box",
-							  "layout": "vertical",
-							  "spacing": "sm",
-							  "contents": [
-								{
-								  "type": "text",
-								  "text": "咒術迴戰",
-								  "wrap": true,
-								  "weight": "bold",
-								  "size": "xl"
-								},
-								{
-								  "type": "box",
-								  "layout": "baseline",
-								  "contents": [
-									{
-									  "type": "text",
-									  "text": "temp",
-									  "wrap": true,
-									  "weight": "bold",
-									  "size": "xl",
-									  "flex": 0
-									},
-									{
-									  "type": "text",
-									  "text": "temp",
-									  "wrap": true,
-									  "weight": "bold",
-									  "size": "sm",
-									  "flex": 0
-									}
-								  ]
-								}
-							  ]
-							},
-							"footer": {
-							  "type": "box",
-							  "layout": "vertical",
-							  "spacing": "sm",
-							  "contents": [
-								{
-								  "type": "button",
-								  "style": "primary",
-								  "action": {
-									"type": "uri",
-									"label": "前往",
-									"uri": "https://linecorp.com"
-								  }
-								},
-								{
-								  "type": "button",
-								  "action": {
-									"type": "uri",
-									"label": "收藏",
-									"uri": "https://linecorp.com"
-								  }
-								}
-							  ]
-							}
-						  },
-						  {
-							"type": "bubble",
-							"hero": {
-							  "type": "image",
-							  "size": "full",
-							  "aspectRatio": "20:13",
-							  "aspectMode": "fit",
-							  "url": "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"
-							},
-							"body": {
-							  "type": "box",
-							  "layout": "vertical",
-							  "spacing": "sm",
-							  "contents": [
-								{
-								  "type": "text",
-								  "text": "鬼滅之刃",
-								  "wrap": true,
-								  "weight": "bold",
-								  "size": "xl"
-								},
-								{
-								  "type": "box",
-								  "layout": "baseline",
-								  "flex": 1,
-								  "contents": [
-									{
-									  "type": "text",
-									  "text": "temp",
-									  "wrap": true,
-									  "weight": "bold",
-									  "size": "xl",
-									  "flex": 0
-									},
-									{
-									  "type": "text",
-									  "text": "temp",
-									  "wrap": true,
-									  "weight": "bold",
-									  "size": "sm",
-									  "flex": 0
-									}
-								  ]
-								},
-								{
-								  "type": "text",
-								  "text": "Temporarily ",
-								  "wrap": true,
-								  "size": "xxs",
-								  "margin": "md",
-								  "color": "#ff5551",
-								  "flex": 0
-								}
-							  ]
-							},
-							"footer": {
-							  "type": "box",
-							  "layout": "vertical",
-							  "spacing": "sm",
-							  "contents": [
-								{
-								  "type": "button",
-								  "flex": 2,
-								  "style": "primary",
-								  "color": "#aaaaaa",
-								  "action": {
-									"type": "uri",
-									"label": "前往",
-									"uri": "https://linecorp.com"
-								  }
-								},
-								{
-								  "type": "button",
-								  "action": {
-									"type": "uri",
-									"label": "收藏",
-									"uri": "https://linecorp.com"
-								  }
-								}
-							  ]
-							}
-						  }
-						]
-					  }`)
-				*/
-
-				bubbleContainers := []*linebot.BubbleContainer{
-					&linebot.BubbleContainer{Type: "bubble",
-						Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"},
-						Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "咒術迴戰", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
-						Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}},
-					&linebot.BubbleContainer{Type: "bubble",
-						Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"},
-						Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "鬼滅之刃", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
-						Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}},
-				}
 				container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
-
-				/*
-					container, err := linebot.UnmarshalFlexMessageJSON(jsonData)
-					// err is returned if invalid JSON is given that cannot be unmarshalled
-					if err != nil {
-						log.Print(err)
-					}*/
 
 				flexMessage := linebot.NewFlexMessage("alt text", container)
 
@@ -249,4 +91,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+}
+
+func newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo string) *linebot.BubbleContainer {
+	return &linebot.BubbleContainer{Type: "bubble",
+		Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: bookImg},
+		Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: bookTitle, Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: bookInfo, Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
+		Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: baseComicURL + bookLink}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: baseComicURL + bookLink}}}}}
 }
