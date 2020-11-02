@@ -103,6 +103,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo string) *linebot.BubbleContainer {
+	if len(bookInfo) > 200 {
+		bookInfo = bookInfo[:200] + "..."
+	}
+
 	return &linebot.BubbleContainer{Type: "bubble",
 		Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: bookImg},
 		Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: bookTitle, Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: bookInfo, Wrap: true, Weight: "bold", Size: "xl"}}}}},
