@@ -68,7 +68,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						  "type": "image",
 						  "size": "full",
 						  "aspectRatio": "20:13",
-						  "aspectMode": "cover",
+						  "aspectMode": "fit",
 						  "url": "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"
 						},
 						"body": {
@@ -78,7 +78,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						  "contents": [
 							{
 							  "type": "text",
-							  "text": message.Text,
+							  "text": "咒術迴戰",
 							  "wrap": true,
 							  "weight": "bold",
 							  "size": "xl"
@@ -89,7 +89,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "contents": [
 								{
 								  "type": "text",
-								  "text": "$49",
+								  "text": "temp",
 								  "wrap": true,
 								  "weight": "bold",
 								  "size": "xl",
@@ -97,7 +97,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								},
 								{
 								  "type": "text",
-								  "text": ".99",
+								  "text": "temp",
 								  "wrap": true,
 								  "weight": "bold",
 								  "size": "sm",
@@ -117,7 +117,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "style": "primary",
 							  "action": {
 								"type": "uri",
-								"label": "Add to Cart",
+								"label": "前往",
 								"uri": "https://linecorp.com"
 							  }
 							},
@@ -125,7 +125,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "type": "button",
 							  "action": {
 								"type": "uri",
-								"label": "Add to wishlist",
+								"label": "收藏",
 								"uri": "https://linecorp.com"
 							  }
 							}
@@ -138,8 +138,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						  "type": "image",
 						  "size": "full",
 						  "aspectRatio": "20:13",
-						  "aspectMode": "cover",
-						  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_6_carousel.png"
+						  "aspectMode": "fit",
+						  "url": "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"
 						},
 						"body": {
 						  "type": "box",
@@ -148,7 +148,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						  "contents": [
 							{
 							  "type": "text",
-							  "text": "Metal Desk Lamp",
+							  "text": "鬼滅之刃",
 							  "wrap": true,
 							  "weight": "bold",
 							  "size": "xl"
@@ -160,7 +160,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "contents": [
 								{
 								  "type": "text",
-								  "text": "$11",
+								  "text": "temp",
 								  "wrap": true,
 								  "weight": "bold",
 								  "size": "xl",
@@ -168,7 +168,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 								},
 								{
 								  "type": "text",
-								  "text": ".99",
+								  "text": "temp",
 								  "wrap": true,
 								  "weight": "bold",
 								  "size": "sm",
@@ -178,7 +178,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							},
 							{
 							  "type": "text",
-							  "text": "Temporarily out of stock",
+							  "text": "Temporarily ",
 							  "wrap": true,
 							  "size": "xxs",
 							  "margin": "md",
@@ -199,7 +199,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "color": "#aaaaaa",
 							  "action": {
 								"type": "uri",
-								"label": "Add to Cart",
+								"label": "前往",
 								"uri": "https://linecorp.com"
 							  }
 							},
@@ -207,27 +207,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 							  "type": "button",
 							  "action": {
 								"type": "uri",
-								"label": "Add to wish list",
-								"uri": "https://linecorp.com"
-							  }
-							}
-						  ]
-						}
-					  },
-					  {
-						"type": "bubble",
-						"body": {
-						  "type": "box",
-						  "layout": "vertical",
-						  "spacing": "sm",
-						  "contents": [
-							{
-							  "type": "button",
-							  "flex": 1,
-							  "gravity": "center",
-							  "action": {
-								"type": "uri",
-								"label": "See more",
+								"label": "收藏",
 								"uri": "https://linecorp.com"
 							  }
 							}
