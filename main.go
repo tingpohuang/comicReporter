@@ -223,7 +223,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					&linebot.BubbleContainer{Type: "bubble",
 						Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"},
 						Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "咒術迴戰", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
-						Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}}}
+						Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}},
+					&linebot.BubbleContainer{Type: "bubble",
+						Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"},
+						Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "鬼滅之刃", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
+						Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}},
+				}
 				container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
 
 				/*
