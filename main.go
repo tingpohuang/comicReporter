@@ -75,6 +75,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					bookInfo := book.Find("p.book-list-info-desc").Contents().Text()
 					bubbleContainers = append(bubbleContainers, newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo))
 
+					if index > 5 {
+						return
+					}
 				})
 				//Preprocessd Flex message Json data
 
