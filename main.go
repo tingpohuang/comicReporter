@@ -75,10 +75,15 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					bookInfo := book.Find("p.book-list-info-desc").Contents().Text()
 					bubbleContainers = append(bubbleContainers, newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo))
 
+					log.Printf("Link #%d: %s'\n", index, bookLink)
+					log.Printf("Link #%d Text: '%s'\n", index, bookTitle)
+					log.Printf("Link #%d Img: '%s'\n", index, bookImg)
+					log.Printf("Link #%d Info: '%s'\n", index, bookInfo)
 					if index > 5 {
 						return
 					}
 				})
+
 				//Preprocessd Flex message Json data
 
 				container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
