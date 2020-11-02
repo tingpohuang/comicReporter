@@ -59,169 +59,179 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 				//Preprocessd Flex message Json data
 
-				jsonData := []byte(`{
-					"type": "carousel",
-					"contents": [
-					  {
-						"type": "bubble",
-						"hero": {
-						  "type": "image",
-						  "size": "full",
-						  "aspectRatio": "20:13",
-						  "aspectMode": "fit",
-						  "url": "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"
-						},
-						"body": {
-						  "type": "box",
-						  "layout": "vertical",
-						  "spacing": "sm",
-						  "contents": [
-							{
-							  "type": "text",
-							  "text": "咒術迴戰",
-							  "wrap": true,
-							  "weight": "bold",
-							  "size": "xl"
+				/*
+					jsonData := []byte(`{
+						"type": "carousel",
+						"contents": [
+						  {
+							"type": "bubble",
+							"hero": {
+							  "type": "image",
+							  "size": "full",
+							  "aspectRatio": "20:13",
+							  "aspectMode": "fit",
+							  "url": "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"
 							},
-							{
+							"body": {
 							  "type": "box",
-							  "layout": "baseline",
+							  "layout": "vertical",
+							  "spacing": "sm",
 							  "contents": [
 								{
 								  "type": "text",
-								  "text": "temp",
+								  "text": "咒術迴戰",
 								  "wrap": true,
 								  "weight": "bold",
-								  "size": "xl",
-								  "flex": 0
+								  "size": "xl"
 								},
 								{
-								  "type": "text",
-								  "text": "temp",
-								  "wrap": true,
-								  "weight": "bold",
-								  "size": "sm",
-								  "flex": 0
+								  "type": "box",
+								  "layout": "baseline",
+								  "contents": [
+									{
+									  "type": "text",
+									  "text": "temp",
+									  "wrap": true,
+									  "weight": "bold",
+									  "size": "xl",
+									  "flex": 0
+									},
+									{
+									  "type": "text",
+									  "text": "temp",
+									  "wrap": true,
+									  "weight": "bold",
+									  "size": "sm",
+									  "flex": 0
+									}
+								  ]
+								}
+							  ]
+							},
+							"footer": {
+							  "type": "box",
+							  "layout": "vertical",
+							  "spacing": "sm",
+							  "contents": [
+								{
+								  "type": "button",
+								  "style": "primary",
+								  "action": {
+									"type": "uri",
+									"label": "前往",
+									"uri": "https://linecorp.com"
+								  }
+								},
+								{
+								  "type": "button",
+								  "action": {
+									"type": "uri",
+									"label": "收藏",
+									"uri": "https://linecorp.com"
+								  }
 								}
 							  ]
 							}
-						  ]
-						},
-						"footer": {
-						  "type": "box",
-						  "layout": "vertical",
-						  "spacing": "sm",
-						  "contents": [
-							{
-							  "type": "button",
-							  "style": "primary",
-							  "action": {
-								"type": "uri",
-								"label": "前往",
-								"uri": "https://linecorp.com"
-							  }
+						  },
+						  {
+							"type": "bubble",
+							"hero": {
+							  "type": "image",
+							  "size": "full",
+							  "aspectRatio": "20:13",
+							  "aspectMode": "fit",
+							  "url": "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"
 							},
-							{
-							  "type": "button",
-							  "action": {
-								"type": "uri",
-								"label": "收藏",
-								"uri": "https://linecorp.com"
-							  }
-							}
-						  ]
-						}
-					  },
-					  {
-						"type": "bubble",
-						"hero": {
-						  "type": "image",
-						  "size": "full",
-						  "aspectRatio": "20:13",
-						  "aspectMode": "fit",
-						  "url": "https://mhfm7us.cdnmanhua.net/22/21840/20190927092201_180x240_29.jpg"
-						},
-						"body": {
-						  "type": "box",
-						  "layout": "vertical",
-						  "spacing": "sm",
-						  "contents": [
-							{
-							  "type": "text",
-							  "text": "鬼滅之刃",
-							  "wrap": true,
-							  "weight": "bold",
-							  "size": "xl"
-							},
-							{
+							"body": {
 							  "type": "box",
-							  "layout": "baseline",
-							  "flex": 1,
+							  "layout": "vertical",
+							  "spacing": "sm",
 							  "contents": [
 								{
 								  "type": "text",
-								  "text": "temp",
+								  "text": "鬼滅之刃",
 								  "wrap": true,
 								  "weight": "bold",
-								  "size": "xl",
-								  "flex": 0
+								  "size": "xl"
+								},
+								{
+								  "type": "box",
+								  "layout": "baseline",
+								  "flex": 1,
+								  "contents": [
+									{
+									  "type": "text",
+									  "text": "temp",
+									  "wrap": true,
+									  "weight": "bold",
+									  "size": "xl",
+									  "flex": 0
+									},
+									{
+									  "type": "text",
+									  "text": "temp",
+									  "wrap": true,
+									  "weight": "bold",
+									  "size": "sm",
+									  "flex": 0
+									}
+								  ]
 								},
 								{
 								  "type": "text",
-								  "text": "temp",
+								  "text": "Temporarily ",
 								  "wrap": true,
-								  "weight": "bold",
-								  "size": "sm",
+								  "size": "xxs",
+								  "margin": "md",
+								  "color": "#ff5551",
 								  "flex": 0
 								}
 							  ]
 							},
-							{
-							  "type": "text",
-							  "text": "Temporarily ",
-							  "wrap": true,
-							  "size": "xxs",
-							  "margin": "md",
-							  "color": "#ff5551",
-							  "flex": 0
+							"footer": {
+							  "type": "box",
+							  "layout": "vertical",
+							  "spacing": "sm",
+							  "contents": [
+								{
+								  "type": "button",
+								  "flex": 2,
+								  "style": "primary",
+								  "color": "#aaaaaa",
+								  "action": {
+									"type": "uri",
+									"label": "前往",
+									"uri": "https://linecorp.com"
+								  }
+								},
+								{
+								  "type": "button",
+								  "action": {
+									"type": "uri",
+									"label": "收藏",
+									"uri": "https://linecorp.com"
+								  }
+								}
+							  ]
 							}
-						  ]
-						},
-						"footer": {
-						  "type": "box",
-						  "layout": "vertical",
-						  "spacing": "sm",
-						  "contents": [
-							{
-							  "type": "button",
-							  "flex": 2,
-							  "style": "primary",
-							  "color": "#aaaaaa",
-							  "action": {
-								"type": "uri",
-								"label": "前往",
-								"uri": "https://linecorp.com"
-							  }
-							},
-							{
-							  "type": "button",
-							  "action": {
-								"type": "uri",
-								"label": "收藏",
-								"uri": "https://linecorp.com"
-							  }
-							}
-						  ]
-						}
-					  }
-					]
-				  }`)
+						  }
+						]
+					  }`)
+				*/
 
-				container, err := linebot.UnmarshalFlexMessageJSON(jsonData)
-				// err is returned if invalid JSON is given that cannot be unmarshalled
-				if err != nil {
-					log.Print(err)
-				}
+				bubbleContainers := make([]*linebot.BubbleContainer, 2)
+				bubbleContainers[0] = &linebot.BubbleContainer{Type: "bubble",
+					Hero:   &linebot.ImageComponent{Type: "image", Size: "full", AspectRatio: "20:13", AspectMode: "fit", URL: "https://mhfm1us.cdnmanhua.net/42/41957/20190701151032_180x240_19.jpg"},
+					Body:   &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "咒術迴戰", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.BoxComponent{Type: "box", Layout: "baseline", Contents: []linebot.FlexComponent{&linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "xl"}, &linebot.TextComponent{Type: "text", Text: "temp", Wrap: true, Weight: "bold", Size: "sm"}}}}},
+					Footer: &linebot.BoxComponent{Type: "box", Layout: "vertical", Spacing: "sm", Contents: []linebot.FlexComponent{&linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "前往", URI: "https://linecorp.com"}}, &linebot.ButtonComponent{Type: "button", Style: "primary", Action: &linebot.URIAction{Label: "收藏", URI: "https://linecorp.com"}}}}}
+				container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
+
+				/*
+					container, err := linebot.UnmarshalFlexMessageJSON(jsonData)
+					// err is returned if invalid JSON is given that cannot be unmarshalled
+					if err != nil {
+						log.Print(err)
+					}*/
 
 				flexMessage := linebot.NewFlexMessage("alt text", container)
 
