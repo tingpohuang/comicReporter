@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"unicode/utf8"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -103,8 +104,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo string) *linebot.BubbleContainer {
-	if len(bookInfo) > 200 {
-		bookInfo = bookInfo[:200] + "..."
+	if utf8.RuneCountInString(bookInfo) > 75 {
+		bookInfo = (string([]rune(bookInfo)[:75]) + "...")
 	}
 
 	return &linebot.BubbleContainer{Type: "bubble",
