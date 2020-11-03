@@ -104,8 +104,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo string) *linebot.BubbleContainer {
-	if utf8.RuneCountInString(bookInfo) > 75 {
-		bookInfo = (string([]rune(bookInfo)[:75]) + "...")
+	if utf8.RuneCountInString(bookInfo) > 50 {
+		bookInfo = (string([]rune(bookInfo)[:50]) + "...")
 	}
 
 	return &linebot.BubbleContainer{Type: "bubble",
