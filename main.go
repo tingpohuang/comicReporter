@@ -60,43 +60,49 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				log.Println(message.Text)
 
-				// Web Crawler
-				encodeMessage, _ := url.Parse(message.Text)
-				doc, err := goquery.NewDocument("https://www.manhuaren.com/search?title=" + encodeMessage.String())
-				if err != nil {
-					log.Fatal(err)
-				}
+				w.WriteHeader(200)
 
-				var bubbleContainers []*linebot.BubbleContainer
-				doc.Find("ul.book-list li").EachWithBreak(func(index int, item *goquery.Selection) bool {
-					book := item
-					bookLink, _ := book.Find("a").Attr("href")
-					bookTitle, _ := book.Find("a").Attr("title")
-					bookImg, _ := book.Find("a img").Attr("src")
-					bookInfo := book.Find("p.book-list-info-desc").Contents().Text()
-					bubbleContainers = append(bubbleContainers, newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo))
+				go func() {
 
-					log.Printf("Link #%d: %s'\n", index, bookLink)
-					log.Printf("Link #%d Text: '%s'\n", index, bookTitle)
-					log.Printf("Link #%d Img: '%s'\n", index, bookImg)
-					log.Printf("Link #%d Info: '%s'\n", index, bookInfo)
-					if index > 5 {
-						return false
+					// Web Crawler
+					encodeMessage, _ := url.Parse(message.Text)
+					doc, err := goquery.NewDocument("https://www.manhuaren.com/search?title=" + encodeMessage.String())
+					if err != nil {
+						log.Fatal(err)
 					}
-					return true
-				})
 
-				//Preprocessd Flex message Json data
+					var bubbleContainers []*linebot.BubbleContainer
+					doc.Find("ul.book-list li").EachWithBreak(func(index int, item *goquery.Selection) bool {
+						book := item
+						bookLink, _ := book.Find("a").Attr("href")
+						bookTitle, _ := book.Find("a").Attr("title")
+						bookImg, _ := book.Find("a img").Attr("src")
+						bookInfo := book.Find("p.book-list-info-desc").Contents().Text()
+						bubbleContainers = append(bubbleContainers, newBubbleContainer(bookTitle, bookLink, bookImg, bookInfo))
 
-				container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
+						log.Printf("Link #%d: %s'\n", index, bookLink)
+						log.Printf("Link #%d Text: '%s'\n", index, bookTitle)
+						log.Printf("Link #%d Img: '%s'\n", index, bookImg)
+						log.Printf("Link #%d Info: '%s'\n", index, bookInfo)
+						if index > 5 {
+							return false
+						}
+						return true
+					})
 
-				flexMessage := linebot.NewFlexMessage("alt text", container)
+					//Preprocessd Flex message Json data
 
-				// Reply Message
+					container := &linebot.CarouselContainer{Type: "carousel", Contents: bubbleContainers}
 
-				if _, err = bot.ReplyMessage(event.ReplyToken, flexMessage).Do(); err != nil {
-					log.Print(err)
-				}
+					flexMessage := linebot.NewFlexMessage("alt text", container)
+
+					// Reply Message
+
+					if _, err = bot.ReplyMessage(event.ReplyToken, flexMessage).Do(); err != nil {
+						log.Print(err)
+					}
+
+				}()
 
 			}
 		}
